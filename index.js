@@ -1,6 +1,7 @@
 //importing packages
 const inquirer = require('inquirer');
 const fs = require('fs');
+const {viewDepartments,viewRoles,viewEmployees,addDepartment,addRole,addEmployee,updateEmployeeRole} = require('./helpers/dbUtils')
 // questions to be used
 const questions = {
     user:'What would you like to do?',

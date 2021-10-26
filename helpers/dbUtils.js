@@ -36,9 +36,9 @@ const addEmployee = () => {
     const query = 'INSERT INTO employees (first_name,last_name,role_id,manager_id) VALUES (?,?,?,?)';
 };
 
-const updateEmployeerole = () => {
+const updateEmployeeRole = () => {
     const query = 'UPDATE employees SET role_id = ? WHERE id = ?';
 };
 
 
-module.exports={viewDepartments,viewRoles,viewEmployees,addDepartment,addRole,addEmployee,updateEmployee};
+module.exports={viewDepartments,viewRoles,viewEmployees,addDepartment,addRole,addEmployee,updateEmployeeRole};
