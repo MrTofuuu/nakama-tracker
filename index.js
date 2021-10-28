@@ -44,7 +44,7 @@ const promptUser = ()=>{
             message:questions.salary
         }
 
-])
+    ])
 };
 
 const init = ()=>{
