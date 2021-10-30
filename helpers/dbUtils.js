@@ -1,44 +1,93 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 const db = mysql.createConnection(
-    {
-      host: 'localhost',
-      // MySQL username,
-      user: process.env.DB_USER,
-      // MySQL password
-      password: process.env.DB_PW,
-      database: process.env.DB_NAME
-    },
-    console.log(`Connected to the business_db database.`)
+  {
+    host: "localhost",
+    // MySQL username,
+    user: process.env.DB_USER,
+    // MySQL password
+    password: process.env.DB_PW,
+    database: process.env.DB_NAME,
+  },
+  console.log(`Connected to the business_db database.`)
 );
 
 const viewDepartments = () => {
-    const query = 'SELECT * FROM departments';
-    
+  let query = "SELECT * FROM departments";
+  db.query(query, (err, results) => {
+    if (err) {
+      return "error in viewDepartments query";
+    }
+    return results;
+  });
 };
 
 const viewRoles = () => {
-    const query = 'SELECT * FROM roles';
+  let query = "SELECT * FROM roles";
+  db.query(query, (err, results) => {
+    if (err) {
+      return "error in viewRoles query";
+    }
+    return results;
+  });
 };
 
 const viewEmployees = () => {
-    const query = 'SELECT * FROM employees';
+  let query = "SELECT * FROM employees";
+  db.query(query, (err, results) => {
+    if (err) {
+      return "error in viewEmployees query";
+    }
+    return results;
+  });
 };
 
-const addDepartment = () => {
-    const query = 'INSERT INTO departments (name) VALUES (?)';
+const addDepartment = (dept) => {
+  let query = "INSERT INTO departments (name) VALUES (?)";
+  let params = [dept];
+  db.query(query, params, (err, results) => {
+    if (err) {
+      return "error in addDepartment query";
+    }
+    return results;
+  });
 };
 
-const addRole = () => {
-    const query = 'INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)';
+const addRole = (title, salary, deptartment_id) => {
+  let query = "INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)";
+  db.query(query, params, (err, results) => {
+    if (err) {
+      return "error in addRole query";
+    }
+    return results;
+  });
 };
 
-const addEmployee = () => {
-    const query = 'INSERT INTO employees (first_name,last_name,role_id,manager_id) VALUES (?,?,?,?)';
+const addEmployee = (first, last, role_id, manager_id) => {
+  let query = "INSERT INTO employees (first_name,last_name,role_id,manager_id) VALUES (?,?,?,?)";
+  db.query(query, params, (err, results) => {
+    if (err) {
+      return "error in addEmployee query";
+    }
+    return results;
+  });
 };
 
-const updateEmployeeRole = () => {
-    const query = 'UPDATE employees SET role_id = ? WHERE id = ?';
+const updateEmployeeRole = (newRole, currentRole) => {
+  let query = "UPDATE employees SET role_id = ? WHERE id = ?";
+  db.query(query, params, (err, results) => {
+    if (err) {
+      return "error in updateEmployeeRole query";
+    }
+    return results;
+  });
 };
 
-
-module.exports={viewDepartments,viewRoles,viewEmployees,addDepartment,addRole,addEmployee,updateEmployeeRole};
+module.exports = {
+  viewDepartments,
+  viewRoles,
+  viewEmployees,
+  addDepartment,
+  addRole,
+  addEmployee,
+  updateEmployeeRole,
+};

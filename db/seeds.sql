@@ -5,7 +5,7 @@ VALUES  ('Hero'),
         ('SAITAMA');
 
 INSERT INTO roles (title, salary, departments_id)
-VALUES  ('Pirate',99999.99,1),
+VALUES  ('Pirate',99999,1),
         ('Ninja',50000,2),
         ('Mecha',25000,3),
         ('Demon Slayer',60000,1),
