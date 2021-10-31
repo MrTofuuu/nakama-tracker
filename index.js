@@ -48,8 +48,10 @@ const promptUser = ()=>{
 };
 
 const init = ()=>{
-    promptUser()
+    // promptUser()
+    viewDepartments();
 };
 
 // Function call to initialize app
 init();
+viewDepartments();

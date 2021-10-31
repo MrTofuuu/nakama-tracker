@@ -1,4 +1,5 @@
 const mysql = require("mysql2");
+const cTable = require("console.table");
 const db = mysql.createConnection(
   {
     host: "localhost",
@@ -17,7 +18,8 @@ const viewDepartments = () => {
     if (err) {
       return "error in viewDepartments query";
     }
-    return results;
+    console.log('inside view dept');
+    console.table(results);
   });
 };
 
