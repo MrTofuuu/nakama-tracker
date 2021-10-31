@@ -58,24 +58,28 @@ const addDepartment = (dept) => {
   });
 };
 
-const addRole = (title, salary, deptartment_id) => {
+const addRole = (title, salary, department_id) => {
   let query = "INSERT INTO roles (title, salary, department_id) VALUES (?,?,?);";
+  let params = [title, salary, department_id];
   db.query(query, params, (err, results) => {
     if (err) {
       return console.log(err);
     }
-    return console.table(results);
+    console.table(results);
+    console.log(`Title: ${title} \nSalary: ${salary} \nDepartment: ${department_id} \nRole added successfully`);
   });
 };
 
 const addEmployee = (first, last, role_id, manager_id) => {
   let query =
     "INSERT INTO employees (first_name,last_name,role_id,manager_id) VALUES (?,?,?,?);";
+  let params = [first, last, role_id, manager_id];
   db.query(query, params, (err, results) => {
     if (err) {
       return console.log(err);
     }
-    return console.table(results);
+    console.table(results);
+    console.log(`Name: ${first, ' ', last}\nRole: ${role_id}\nManager ID:${manager_id}\nEmployee added successfully`);
   });
 };
 

@@ -25,34 +25,36 @@ const mainMenu = ()=>{
                 'Add a role',
                 'Add an employee',
                 'Update an employee role']
-        },{
-            type:'input',
-            name:'first_name',
-            message:questions.first_name
-        },{
-            type:'input',
-            name:'last_name',
-            message:questions.last_name
-        },{
-            type:'input',
-            name:'role',
-            message:questions.role
-        },{
-            type:'input',
-            name:'salary',
-            message:questions.salary
-        }
-
+        },
     ])
 };
-
+/* {
+    type:'input',
+    name:'first_name',
+    message:questions.first_name
+},{
+    type:'input',
+    name:'last_name',
+    message:questions.last_name
+},{
+    type:'input',
+    name:'role',
+    message:questions.role
+},{
+    type:'input',
+    name:'salary',
+    message:questions.salary
+} */
 const init = ()=>{
     // promptUser()
     // console.log('before view dep');
     // viewDepartments();
     // viewRoles();
     // viewEmployees();
-    addDepartment('Devil Hunters');
+    // addDepartment('Devil Hunters');
+    addRole('Devil Hunters', 69000.69, 5);
+    // addEmployee();
+    // updateEmployeeRole();
     // console.log('after view dep in init');
   
 };
