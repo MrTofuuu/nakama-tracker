@@ -1,5 +1,6 @@
 //importing packages
 const inquirer = require('inquirer');
+const dotenv = require('dotenv');
 const fs = require('fs');
 const {viewDepartments,viewRoles,viewEmployees,addDepartment,addRole,addEmployee,updateEmployeeRole} = require('./helpers/dbUtils')
 // questions to be used
@@ -49,9 +50,11 @@ const promptUser = ()=>{
 
 const init = ()=>{
     // promptUser()
+    console.log('before view dep');
     viewDepartments();
+    console.log('after view dep in init');
 };
 
 // Function call to initialize app
 init();
-viewDepartments();
+// viewDepartments();

@@ -14,12 +14,14 @@ const db = mysql.createConnection(
 
 const viewDepartments = () => {
   let query = "SELECT * FROM departments;";
+  console.log('prior to db query in view dept');
   db.query(query, (err, results) => {
+    console.log('in db.query');
     if (err) {
-      return "error in viewDepartments query";
+      return console.log("error in viewDepartments query");
     }
     console.log('inside view dept');
-    console.table(results);
+    return console.table(results);
   });
 };
 
