@@ -13,7 +13,7 @@ const db = mysql.createConnection(
   console.log(`Connected to the business_db database.`)
 );
 
-const viewDepartments = () => {
+const viewDepartments = async () => {
   let query = "SELECT * FROM departments;";
   // console.log('prior to db query in view dept');
   db.query(query, (err, results) => {
@@ -26,7 +26,7 @@ const viewDepartments = () => {
   });
 };
 
-const viewRoles = () => {
+const viewRoles = async () => {
   let query =
     "SELECT d.name as 'Department Name', r.roles_id, r.title, r.salary FROM roles r JOIN departments d ON r.departments_id = d.departments_id;";
   db.query(query, (err, results) => {
@@ -37,7 +37,7 @@ const viewRoles = () => {
   });
 };
 
-const viewEmployees = () => {
+const viewEmployees = async () => {
   let query =
     "SELECT  e.employees_id AS 'Employee ID', e.first_name AS 'First Name', e.last_name AS 'Last Name',r.title AS 'Job Title',  d.name AS 'Department', r.salary AS 'Salary',CONCAT(IFNULL(m.first_name,'No'), ' ', IFNULL(m.last_name,'Manager')) AS 'Manager' FROM employees as e INNER JOIN roles as r ON e.roles_id = r.roles_id INNER JOIN departments as d ON r.departments_id = d.departments_id LEFT JOIN employees as m on e.manager_id = m.employees_id;";
   db.query(query, (err, results) => {
@@ -48,7 +48,7 @@ const viewEmployees = () => {
   });
 };
 
-const addDepartment = (dept) => {
+const addDepartment = async (dept) => {
   let query = "INSERT INTO departments (name) VALUES (?);";
   let params = [dept];
   db.query(query, params, (err, results) => {
@@ -60,7 +60,7 @@ const addDepartment = (dept) => {
   });
 };
 
-const addRole = (title, salary, department_id) => {
+const addRole = async (title, salary, department_id) => {
   let query =
     "INSERT INTO roles (title, salary, departments_id) VALUES (?,?,?);";
   let params = [title, salary, department_id];
@@ -75,7 +75,7 @@ const addRole = (title, salary, department_id) => {
   });
 };
 
-const addEmployee = (first, last, role_id, manager_id) => {
+const addEmployee = async (first, last, role_id, manager_id) => {
   if (manager_id) {
     let query =
       "INSERT INTO employees (first_name,last_name,roles_id,manager_id) VALUES (?,?,?,?);";
@@ -102,20 +102,21 @@ const addEmployee = (first, last, role_id, manager_id) => {
       console.table(results);
       console.log(
         `Name: ${
-          (first, " ", last)
+          first + " " + last
         }\nRole: ${role_id}\nEmployee added successfully`
       );
     });
   }
 };
 
-const updateEmployeeRole = (newRole, currentRole) => {
-  let query = "UPDATE employees SET role_id = ? WHERE id = ?;";
+const updateEmployeeRole = async (newRole, employee) => {
+  let query = "UPDATE employees SET roles_id = ? WHERE employees_id = ?;";
+  let params = [newRole, employee];
   db.query(query, params, (err, results) => {
     if (err) {
       return console.log(err);
     }
-    return console.table(results);
+    console.table(`Employee ID: ${employee}\nNew Role: ${newRole}\nEmployee role updated succesfully!`);
   });
 };
 

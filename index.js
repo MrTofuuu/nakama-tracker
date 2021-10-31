@@ -45,7 +45,7 @@ const mainMenu = ()=>{
     name:'salary',
     message:questions.salary
 } */
-const init =  ()=>{
+const init = ()=>{
     // promptUser()
     // console.log('before view dep');
     // viewDepartments();
@@ -53,12 +53,13 @@ const init =  ()=>{
     // viewEmployees();
     //  addDepartment('Devil Hunters');
     //  addRole('Devil Hunters', 69000.69, 5);
-    //  addEmployee('Denji', 'Man', 10);
-    // updateEmployeeRole();
+    // addEmployee('Denji', 'Man', 10);
+    // updateEmployeeRole(7,14);
     // console.log('after view dep in init');
     // return process.exit();
 };
 
 // Function call to initialize app
 init();
+// process.exit(0);
 // viewDepartments();
