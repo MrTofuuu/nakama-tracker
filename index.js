@@ -10,8 +10,9 @@ const {
   updateEmployeeRole,
   getDepartments,
   getRoles,
-  getManagers
+  getManagers,
 } = require("./helpers/dbUtils");
+let deptChoice = [];
 // questions to be used
 const questions = {
   user: "What would you like to do?",
@@ -23,7 +24,7 @@ const questions = {
   deptName: "What is the new department name?",
   roleName: "What is the new role name?",
   department: "Which department will be assigned?",
-  manager: "Who is the employee's manager?"
+  manager: "Who is the employee's manager?",
 };
 
 // function to check user choice from main menu and kicks off the next prompt
@@ -57,6 +58,10 @@ const menuSelectCheck = (menuItem) => {
 };
 // function to prompt user on what they would like to do
 const mainMenu = async () => {
+  // array dynamically done
+  
+  // let roleChoice = getRoles();
+  // let managerchoice = getManagers();
   const { userChoice } = await inquirer.prompt([
     {
       type: "list",
@@ -92,6 +97,8 @@ const addDeptMenu = async () => {
 
 // menu prompt for adding role
 const addRoleMenu = async () => {
+    deptChoice = getDepartments();
+    console.log(deptChoice);
   const { roleName, roleSalary, dept } = await inquirer.prompt([
     {
       type: "input",
@@ -107,44 +114,50 @@ const addRoleMenu = async () => {
       type: "list",
       name: "dept",
       message: questions.department,
-      choices: await getDepartments()
+      choices: deptChoice
     },
   ]);
-  parseInt(dept);
-  addRole(roleName, roleSalary, dept);
+  //   parseInt(dept);
+  //   addRole(roleName, roleSalary, dept);
 };
 
 const addEmpMenu = async () => {
-    const { firstName, lastName, empRole, manager } = await inquirer.prompt([
-        {
-          type: "input",
-          name: "firstName",
-          message: questions.firstName,
-        },
-        {
-          type: "input",
-          name: "lastName",
-          message: questions.lastName,
-        },
-        {
-          type: "input",
-          name: "empRole",
-          message: questions.empRole,
-        },
-        {
-            type: "input",
-            name: "manager",
-            message: questions.manager,
-        },
-      ]);
-      addEmployee(firstName, lastName, empRole, manager);
+  const { firstName, lastName, empRole, manager } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "firstName",
+      message: questions.firstName,
+    },
+    {
+      type: "input",
+      name: "lastName",
+      message: questions.lastName,
+    },
+    {
+      type: "input",
+      name: "empRole",
+      message: questions.empRole,
+    },
+    {
+      type: "input",
+      name: "manager",
+      message: questions.manager,
+    },
+  ]);
+  addEmployee(firstName, lastName, empRole, manager);
 };
 
 const updateEmpRole = async () => {};
 
 // function to initialize app
 const init = () => {
+    console.log("iniside init");
+    getDepartments();
+  deptChoice = getDepartments();
+  console.log("deptChoice is");
+  console.log(deptChoice);
   mainMenu();
+  
   // promptUser()
   // console.log('before view dep');
   // viewDepartments();

@@ -119,18 +119,19 @@ const updateEmployeeRole = async (newRole, employee) => {
     console.table(`Employee ID: ${employee}\nNew Role: ${newRole}\nEmployee role updated succesfully!`);
   });
 };
-const getDepartments = async () =>{
+const getDepartments =  () =>{
   let query = "SELECT * FROM departments;";
-  db.query(query, (err, results) => {
+  db.query(query, async(err, results) => {
     if (err) {
       return console.log(err);
     }
     // results is an array of objects {departments_id: id , name: name of departments} 
-    const deptArr = results.map(dept=>({
-      id:dept.departments_id,
+    let deptArr = await results.map(dept=>({
+      value:dept.departments_id,
       name:dept.name
     }));
-    // console.log(deptArr);
+    console.log("inside getDepts");
+    console.log(deptArr);
     return deptArr;
   });
 }
@@ -140,7 +141,7 @@ const getRoles = async () =>{
 const getManagers = async () =>{
 
 }
-getDepartments();
+// getDepartments();
 
 module.exports = {
   viewDepartments,
