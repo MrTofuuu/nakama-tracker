@@ -172,3 +172,16 @@ You are required to submit BOTH of the following for review:
 
 - - -
 © 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+
+
+how to end node js app, only after getting data https://stackoverflow.com/questions/31887113/nodejs-process-exit-prevents-function-from-executing-properly
+
+how to end node js app https://www.geeksforgeeks.org/node-js-process-exit-method/
+
+how to add new line template literals https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+
+https://stackoverflow.com/questions/42373879/node-js-get-result-from-mysql-query
+
+how to use async await https://gist.github.com/JeremyEnglert/649cea9de86c67d1ac5327f260c522fa
+
+how to use async await with inquirere https://gist.github.com/midnightcodr/bd8f9cd4414f5571774c141d1e0865d8
