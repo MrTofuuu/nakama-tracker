@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const cTable = require("console.table");
 require("dotenv").config();
+// creating connection to database
 const db = mysql.createConnection(
   {
     host: "localhost",
@@ -13,51 +14,34 @@ const db = mysql.createConnection(
   console.log(`Connected to the business_db database.`)
 );
 
+// helper functions
 const viewDepartments = async () => {
   let query = "SELECT * FROM departments;";
-  // console.log('prior to db query in view dept');
-  db.query(query, (err, results) => {
-    // console.log('in db.query');
-    if (err) {
-      return console.log(err);
-    }
-    // console.log('inside view dept');
-    return console.table(results);
-  });
+  const [rows] = await db.promise().query(query);
+  return rows;
 };
 
 const viewRoles = async () => {
   let query =
     "SELECT d.name as 'Department Name', r.roles_id, r.title, r.salary FROM roles r JOIN departments d ON r.departments_id = d.departments_id;";
-  db.query(query, (err, results) => {
-    if (err) {
-      return "error in viewRoles query";
-    }
-    console.table(results);
-  });
+  const [rows] = await db.promise().query(query);
+  return rows;
 };
 
 const viewEmployees = async () => {
   let query =
     "SELECT  e.employees_id AS 'Employee ID', e.first_name AS 'First Name', e.last_name AS 'Last Name',r.title AS 'Job Title',  d.name AS 'Department', r.salary AS 'Salary',CONCAT(IFNULL(m.first_name,'No'), ' ', IFNULL(m.last_name,'Manager')) AS 'Manager' FROM employees as e INNER JOIN roles as r ON e.roles_id = r.roles_id INNER JOIN departments as d ON r.departments_id = d.departments_id LEFT JOIN employees as m on e.manager_id = m.employees_id;";
-  db.query(query, (err, results) => {
-    if (err) {
-      return console.log(err);
-    }
-    return console.table(results);
-  });
+  const [rows]=await db.promise().query(query);
+  return rows;
 };
 
 const addDepartment = async (dept) => {
   let query = "INSERT INTO departments (name) VALUES (?);";
   let params = [dept];
-  db.query(query, params, (err, results) => {
-    if (err) {
-      return console.log(err);
-    }
-
-    console.log(`${dept} Department added successfully`);
-  });
+  let [ResultSetHeader] = await db.promise().query(query, params);
+  console.log(ResultSetHeader)
+  console.log(`${dept} Department added successfully`);
+  return ;
 };
 
 const addRole = async (title, salary, department_id) => {
@@ -116,32 +100,44 @@ const updateEmployeeRole = async (newRole, employee) => {
     if (err) {
       return console.log(err);
     }
-    console.table(`Employee ID: ${employee}\nNew Role: ${newRole}\nEmployee role updated succesfully!`);
+    console.table(
+      `Employee ID: ${employee}\nNew Role: ${newRole}\nEmployee role updated succesfully!`
+    );
   });
 };
-const getDepartments =  () =>{
+
+const getDepartments = async () => {
   let query = "SELECT * FROM departments;";
-  db.query(query, async(err, results) => {
-    if (err) {
-      return console.log(err);
-    }
-    // results is an array of objects {departments_id: id , name: name of departments} 
-    let deptArr = await results.map(dept=>({
-      value:dept.departments_id,
-      name:dept.name
-    }));
-    console.log("inside getDepts");
-    console.log(deptArr);
-    return deptArr;
-  });
-}
-const getRoles = async () =>{
-
-}
-const getManagers = async () =>{
-
-}
-// getDepartments();
+  let deptArr = [];
+  const [rows] = await db.promise().query(query);
+  // map over departments_id and name for use by inquirer, which only takes a name:value pair
+  deptArr = rows.map((dept) => ({
+    value: dept.departments_id,
+    name: dept.name,
+  }));
+  return deptArr;
+};
+const getRoles = async () => {
+  let query = "SELECT * FROM roles;";
+  const [rows] = await db.promise().query(query);
+    // map over roles_id and title for use by inquirer, which only takes a name:value pair
+  let roleArr = rows.map((role) => ({
+    value: role.roles_id,
+    name: role.title,
+  }));
+  return roleArr;
+};
+const getEmployees = async () => {
+  let query = "SELECT employees_id, CONCAT(IFNULL(first_name,'No'), ' ', IFNULL(last_name,'Manager')) AS 'Manager' FROM employees;";
+  const [rows] = await db.promise().query(query);
+    // map over employees_id and Manager for use by inquirer, which only takes a name:value pair
+  let empArr = rows.map((employee) => ({
+    value: employee.employees_id,
+    name: employee.Manager,
+  }));
+  console.log(empArr)
+  return empArr;
+};
 
 module.exports = {
   viewDepartments,
@@ -153,5 +149,5 @@ module.exports = {
   updateEmployeeRole,
   getDepartments,
   getRoles,
-  getManagers
+  getEmployees,
 };

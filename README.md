@@ -185,3 +185,7 @@ https://stackoverflow.com/questions/42373879/node-js-get-result-from-mysql-query
 how to use async await https://gist.github.com/JeremyEnglert/649cea9de86c67d1ac5327f260c522fa
 
 how to use async await with inquirere https://gist.github.com/midnightcodr/bd8f9cd4414f5571774c141d1e0865d8
+
+return rows from query https://stackoverflow.com/questions/65661444/nodejs-mysql-query-returning-strange-results-instead-of-records
+
+how to use confirm and when inquirer https://www.npmjs.com/package//inquirer#examples
