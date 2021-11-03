@@ -11,6 +11,7 @@ const {
   getDepartments,
   getRoles,
   getEmployees,
+  updateEmployeeManager
 } = require("./helpers/dbUtils");
 let deptChoice = [];
 // questions to be used
@@ -22,6 +23,7 @@ const questions = {
   salary: "What is the role's salary?",
   updateEmployee: "Which employee did you want to change the role of?",
   updateRole: "What is the employees new role?",
+  updateManager:"Who is the employee's new manager?",
   deptName: "What is the new department name?",
   roleName: "What is the new role name?",
   department: "Which department will be assigned?",
@@ -55,7 +57,10 @@ const menuSelectCheck = async (menuItem) => {
       await addEmpMenu(); 
       break;
     case "Update an employee role": 
-      await updateEmpMenu();
+      await updateEmpRoleMenu();
+      break;
+      case "Update employee manager": 
+      await updateEmpMgrMenu();
       break;
     case "Exit":
       process.exit(0);
@@ -81,6 +86,7 @@ const mainMenu = async () => {
         "Add a role",
         "Add an employee",
         "Update an employee role",
+        "Update employee manager",
         "Exit",
       ],
     },
@@ -99,7 +105,7 @@ const addDeptMenu = async () => {
     },
   ]);
   //function to add department
-  return await addDepartment(deptName);
+  return  console.log(`\n${await addDepartment(deptName)}`);
 };
 
 // add role menu
@@ -123,7 +129,7 @@ const addRoleMenu = async () => {
     },
   ]);
   // function to add role
-  return await addRole(roleName, roleSalary, dept);
+  return console.log(`${await addRole(roleName, roleSalary, dept)}`);
 };
 // add employee menu 
 const addEmpMenu = async () => {
@@ -157,14 +163,14 @@ const addEmpMenu = async () => {
       when: (answers) => answers.hasManager,
     },
   ]);
-  return await addEmployee(firstName, lastName, empRole, manager);
+  return  console.log(`${ addEmployee(firstName, lastName, empRole, manager)}`);
 };
 // update employee menu 
-const updateEmpMenu = async () => {
-  const { updateEmployee, updateRole } = await inquirer.prompt([
+const updateEmpRoleMenu = async () => {
+  const { employee, roleName } = await inquirer.prompt([
     {
       type: "list",
-      name: "dept",
+      name: "employee",
       message: questions.updateEmployee,
       choices: await getEmployees(),
     },
@@ -176,7 +182,27 @@ const updateEmpMenu = async () => {
     },
   ]);
   // function to update employee role
-  return await updateEmployeeRole(updateRole, updateEmployee);
+  return (`\n${await updateEmployeeRole(roleName, employee)}`);
+};
+
+// update employee manager menu 
+const updateEmpMgrMenu = async () => {
+  const { employee, newManager } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "employee",
+      message: questions.updateEmployee,
+      choices: await getEmployees(),
+    },
+    {
+      type: "list",
+      name: "newManager",
+      message: questions.updateManager,
+      choices: await getEmployees(),
+    },
+  ]);
+  // function to update employee role
+  return (`\n${await updateEmployeeManager(newManager, employee)}`);
 };
 
 // function to initialize app

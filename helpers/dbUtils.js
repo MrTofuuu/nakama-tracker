@@ -31,66 +31,80 @@ const viewRoles = async () => {
 const viewEmployees = async () => {
   let query =
     "SELECT  e.employees_id AS 'Employee ID', e.first_name AS 'First Name', e.last_name AS 'Last Name',r.title AS 'Job Title',  d.name AS 'Department', r.salary AS 'Salary',CONCAT(IFNULL(m.first_name,'No'), ' ', IFNULL(m.last_name,'Manager')) AS 'Manager' FROM employees as e INNER JOIN roles as r ON e.roles_id = r.roles_id INNER JOIN departments as d ON r.departments_id = d.departments_id LEFT JOIN employees as m on e.manager_id = m.employees_id;";
-  const [rows]=await db.promise().query(query);
-  return rows;
+  try{
+    const [rows]=await db.promise().query(query);
+    return rows;
+  } catch (error){
+    console.log(`error in viewEmployees`); 
+  }
+    
 };
 
-const addDepartment = async (dept) => {
+const addDepartment = (dept) => {
   let query = "INSERT INTO departments (name) VALUES (?);";
   let params = [dept];
-  let [ResultSetHeader] = await db.promise().query(query, params);
-  console.log(ResultSetHeader)
-  console.log(`${dept} Department added successfully`);
-  return ;
+    try {
+      db.query(query, params);
+    } catch (error){
+      console.log('error in addDepartment query');
+      console.log(error);
+    }
+  return `${dept} Department added successfully`;
 };
 
 const addRole = async (title, salary, department_id) => {
   let query =
     "INSERT INTO roles (title, salary, departments_id) VALUES (?,?,?);";
   let params = [title, salary, department_id];
-  db.query(query, params, (err, results) => {
-    if (err) {
-      return console.log(err);
+  // let output =
+    try{db.query(query, params);
+    } catch (error){
+      console.log('error in addRole query');
+      console.log(error);
     }
-    console.table(results);
-    console.log(
-      `Title: ${title} \nSalary: ${salary} \nDepartment: ${department_id} \nRole added successfully`
-    );
-  });
+  return `Title: ${title} \nSalary: ${salary} \nDepartment: ${department_id} \nRole added successfully`;
+  
 };
 
-const addEmployee = async (first, last, role_id, manager_id) => {
+const addEmployee = (first, last, role_id, manager_id) => {
+  let output;
   if (manager_id) {
     let query =
       "INSERT INTO employees (first_name,last_name,roles_id,manager_id) VALUES (?,?,?,?);";
     let params = [first, last, role_id, manager_id];
-    db.query(query, params, (err, results) => {
+    try{db.query(query, params, (err, results) => {
       if (err) {
         return console.log(err);
       }
-      console.table(results);
-      console.log(
-        `Name: ${
-          (first, " ", last)
-        }\nRole: ${role_id}\nManager ID:${manager_id}\nEmployee added successfully`
-      );
-    });
+      
+      output = `Name: ${(first, " ", last)}\nRole: ${role_id}\nManager ID:${manager_id}\nEmployee added successfully`;
+      
+        return console.log(output);
+    });} catch (error){
+      console.log(`error in addEmployee with manager_id`);
+      console.log(error);
+    } finally {
+      return`\nemployee added successfully`;
+    }
   } else {
     let query =
       "INSERT INTO employees (first_name,last_name,roles_id) VALUES (?,?,?);";
     let params = [first, last, role_id];
-    db.query(query, params, (err, results) => {
+    try{db.query(query, params, (err, results) => {
       if (err) {
         return console.log(err);
       }
-      console.table(results);
-      console.log(
-        `Name: ${
-          first + " " + last
-        }\nRole: ${role_id}\nEmployee added successfully`
-      );
-    });
+     
+      output = `Name: ${first + " " + last}\nRole: ${role_id}\nEmployee added successfully`;
+      return console.log(output);
+    });} catch (error){
+      console.log(`error in addEmployee no manager_id`);
+      console.log(error);
+    } finally{
+      return`\nemployee added successfully`;
+    }
   }
+  
 };
 
 const updateEmployeeRole = async (newRole, employee) => {
@@ -98,12 +112,27 @@ const updateEmployeeRole = async (newRole, employee) => {
   let params = [newRole, employee];
   db.query(query, params, (err, results) => {
     if (err) {
+      console.log('error in update employee;')
       return console.log(err);
     }
-    console.table(
-      `Employee ID: ${employee}\nNew Role: ${newRole}\nEmployee role updated succesfully!`
-    );
+  
   });
+
+  return`Employee ID: ${employee}\nNew Role: ${newRole}\nEmployee role updated succesfully!`
+};
+
+const updateEmployeeManager = async (newManager,employee ) => {
+  let query = "UPDATE employees SET manager_id = ? WHERE employees_id = ?;";
+  let params = [newManager, employee];
+  db.query(query, params, (err, results) => {
+    if (err) {
+      console.log('error in update employee maanger;')
+      return console.log(err);
+    }
+  
+  });
+
+  return`Employee ID: ${employee}\nNew Manager: ${newManager}\nEmployee manager updated succesfully!`
 };
 
 const getDepartments = async () => {
@@ -150,4 +179,5 @@ module.exports = {
   getDepartments,
   getRoles,
   getEmployees,
+  updateEmployeeManager
 };

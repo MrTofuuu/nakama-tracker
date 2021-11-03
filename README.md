@@ -189,3 +189,5 @@ how to use async await with inquirere https://gist.github.com/midnightcodr/bd8f9
 return rows from query https://stackoverflow.com/questions/65661444/nodejs-mysql-query-returning-strange-results-instead-of-records
 
 how to use confirm and when inquirer https://www.npmjs.com/package//inquirer#examples
+
+how to use try catch https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
