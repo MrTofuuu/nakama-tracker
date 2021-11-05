@@ -1,13 +1,5 @@
 # nakama-tracker
 
-# 12 SQL: Employee Tracker
-
-## Your Task
-
-Developers frequently have to create interfaces that allow non-developers to easily view and interact with information stored in databases. These interfaces are called **content management systems (CMS)**. Your assignment this week is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
-
-Because this application won’t be deployed, you’ll also need to create a walkthrough video that demonstrates its functionality and all of the following acceptance criteria being met. You’ll need to submit a link to the video and add it to the README of your project.
-
 ## User Story
 
 ```md
@@ -38,156 +30,47 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
 
-## Mock-Up
+### **Links**
 
-The following video shows an example of the application being used from the command line:
+[Link to the code repository](https://github.com/MrTofuuu/nakama-tracker)
 
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://2u-20.wistia.com/medias/2lnle7xnpk)
 
-## Getting Started
 
-You’ll need to use the [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to your MySQL database and perform queries, the [Inquirer package](https://www.npmjs.com/package/inquirer) to interact with the user via the command line, and the [console.table package](https://www.npmjs.com/package/console.table) to print MySQL rows to the console.
+## Credits
 
-**Important**: You will be committing a file that contains your database credentials. Make sure that your MySQL password is not used for any other personal accounts, because it will be visible on GitHub. In upcoming lessons, you will learn how to better secure this password, or you can start researching npm packages now that could help you.
+* Chris Stallcup
+* Grace Ho
+* I went to Jared Gilpin
 
-You might also want to make your queries asynchronous. MySQL2 exposes a `.promise()` function on Connections to upgrade an existing non-Promise connection to use Promises. To learn more and make your queries asynchronous, refer to the [npm documentation on MySQL2](https://www.npmjs.com/package/mysql2).
+### References and tutorials utilized
+* [https://www.markdownguide.org/basic-syntax/](https://www.markdownguide.org/basic-syntax/)
+* [https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide](https://coding-boot-camp.github.io/full-stack/github/professional-readme-guide)
+* [https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a](https://betterprogramming.pub/add-badges-to-a-github-repository-716d2988dc6a)
 
-Design the database schema as shown in the following image:
+* [how to end node js app, only after getting data](https://stackoverflow.com/questions/31887113/nodejs-process-exit-prevents-function-from-executing-properly)
 
-![Database schema includes tables labeled “employee,” role,” and “department.”](./Assets/12-sql-homework-demo-01.png)
+* [how to end node js app ](https://www.geeksforgeeks.org/node-js-process-exit-method/)
 
-As the image illustrates, your schema should contain the following three tables:
+* [how to add new line template literals ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
-* `department`
+* [how to use mysql2](https://stackoverflow.com/questions/42373879/node-js-get-result-from-mysql-query)
 
-    * `id`: `INT PRIMARY KEY`
+* [how to use async await ](https://gist.github.com/JeremyEnglert/649cea9de86c67d1ac5327f260c522fa)
 
-    * `name`: `VARCHAR(30)` to hold department name
+* [how to use async await with inquirere ](https://gist.github.com/midnightcodr/bd8f9cd4414f5571774c141d1e0865d8)
 
-* `role`
+* [return rows from query ](https://stackoverflow.com/questions/65661444/nodejs-mysql-query-returning-strange-results-instead-of-records)
 
-    * `id`: `INT PRIMARY KEY`
+* [how to use confirm and when inquirer ](https://www.npmjs.com/package//inquirer#examples)
 
-    * `title`: `VARCHAR(30)` to hold role title
+* [how to use try catch ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
 
-    * `salary`: `DECIMAL` to hold role salary
+## Badges
 
-    * `department_id`: `INT` to hold reference to department role belongs to
+[![GitHub open issues](https://img.shields.io/github/issues/MrTofuuu/nakama-tracker?style=for-the-badge)](https://github.com/MrTofuuu/nakama-tracker/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/MrTofuuu/nakama-tracker?style=for-the-badge)](https://img.shields.io/github/issues-closed/MrTofuuu/nakama-tracker?style=for-the-badge)
+[![GitHub stars](https://img.shields.io/github/stars/MrTofuuu/nakama-tracker?style=for-the-badge)](https://github.com/MrTofuuu/nakama-tracker/stargazers)
+[![GitHub license](https://img.shields.io/github/license/mrtofuuu/nakama-tracker?style=for-the-badge)](./LICENSE.md)
 
-* `employee`
 
-    * `id`: `INT PRIMARY KEY`
 
-    * `first_name`: `VARCHAR(30)` to hold employee first name
-
-    * `last_name`: `VARCHAR(30)` to hold employee last name
-
-    * `role_id`: `INT` to hold reference to employee role
-
-    * `manager_id`: `INT` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)
-
-You might want to use a separate file that contains functions for performing specific SQL queries you'll need to use. A constructor function or class could be helpful for organizing these. You might also want to include a `seeds.sql` file to pre-populate your database, making the development of individual features much easier.
-
-## Bonus
-
-Try to add some additional functionality to your application, such as the ability to do the following:
-
-* Update employee managers.
-
-* View employees by manager.
-
-* View employees by department.
-
-* Delete departments, roles, and employees.
-
-* View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
-
-## Grading Requirements
-
-This homework is graded based on the following criteria:
-
-### Deliverables: 10%
-
-* Your GitHub repository containing your application code.
-
-### Walkthrough Video: 27%
-
-* A walkthrough video that demonstrates the functionality of the employee tracker must be submitted, and a link to the video should be included in your README file.
-
-* The walkthrough video must show all of the technical acceptance criteria being met.
-
-* The walkthrough video must demonstrate how a user would invoke the application from the command line.
-
-* The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria.
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-    * Uses the [Inquirer package](https://www.npmjs.com/package/inquirer).
-
-    * Uses the [MySQL2 package](https://www.npmjs.com/package/mysql2) to connect to a MySQL database.
-
-    * Uses the [console.table package](https://www.npmjs.com/package/console.table) to print MySQL rows to the console.
-
-* Follows the table schema outlined in the homework instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains a high-quality README with description and a link to a walkthrough video.
-
-### Application Quality 10%
-
-* The application user experience is intuitive and easy to navigate.
-
-### Bonus
-
-Fulfilling any of the following can add up to 20 points to your grade. Note that the highest grade you can achieve is still 100:
-
-* Application allows users to update employee managers (2 points).
-
-* Application allows users to view employees by manager (2 points).
-
-* Application allows users to view employees by department (2 points).
-
-* Application allows users to delete departments, roles, and employees (2 points for each).
-
-* Application allows users to view the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department (8 points).
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* A walkthrough video demonstrating the functionality of the application.
-
-* The URL of the GitHub repository, with a unique name and a README describing the project.
-
-- - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
-
-
-how to end node js app, only after getting data https://stackoverflow.com/questions/31887113/nodejs-process-exit-prevents-function-from-executing-properly
-
-how to end node js app https://www.geeksforgeeks.org/node-js-process-exit-method/
-
-how to add new line template literals https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-
-https://stackoverflow.com/questions/42373879/node-js-get-result-from-mysql-query
-
-how to use async await https://gist.github.com/JeremyEnglert/649cea9de86c67d1ac5327f260c522fa
-
-how to use async await with inquirere https://gist.github.com/midnightcodr/bd8f9cd4414f5571774c141d1e0865d8
-
-return rows from query https://stackoverflow.com/questions/65661444/nodejs-mysql-query-returning-strange-results-instead-of-records
-
-how to use confirm and when inquirer https://www.npmjs.com/package//inquirer#examples
-
-how to use try catch https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
