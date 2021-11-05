@@ -34,7 +34,7 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 [Link to the code repository](https://github.com/MrTofuuu/nakama-tracker)
 
-
+[Video of the application](https://watch.screencastify.com/v/L2lBFYjN28oBdR7pnTKT)
 
 ## Credits
 
